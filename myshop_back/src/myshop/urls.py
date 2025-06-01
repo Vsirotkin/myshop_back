@@ -3,12 +3,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-urlpatterns = [path("", include("shop.urls", namespace="shop"))]
-
 # admin
-urlpatterns += [
+urlpatterns = [
     path("admin/", admin.site.urls),
 ]
+
+urlpatterns += [path("", include("shop.urls", namespace="shop"))]
+
 
 # Только для локальной разработки (DEBUG = True)
 if settings.DEBUG:
