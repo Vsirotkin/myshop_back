@@ -1,0 +1,7 @@
+/* src/static/css/custom.css */
+
+.product-image {
+    object-fit: cover;
+    width: 100%;
+    height: 250px;
+}
