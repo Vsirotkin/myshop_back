@@ -36,13 +36,13 @@ clean:
 resetdb: clean migrate
 
 test:
-	$(MANAGE) test shop.tests
+	$(MANAGE) test cart.tests
 
 test-one:
 	$(MANAGE) test $(ARGS)
 
 coverage:
-	python -m coverage run --source=src/shop src/manage.py test shop.tests
+	python -m coverage run --source=src/shop src/manage.py test cart.tests
 	python -m coverage report -m
 	python -m coverage html
 	@echo "HTML отчет сохранён в htmlcov/index.html"
