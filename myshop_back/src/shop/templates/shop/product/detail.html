@@ -32,7 +32,14 @@
 
             <form action="{% url 'cart:cart_add' product.id %}" method="post" class="mb-3">
                 {% csrf_token %}
-                {{ cart_product_form }}
+
+                <div class="mb-3">
+                    {{ cart_product_form.quantity.label_tag }}
+                    {{ cart_product_form.quantity }}
+                </div>
+
+                {{ cart_product_form.override }}
+
                 <button type="submit" class="btn btn-primary btn-lg">
                     Add to cart
                 </button>

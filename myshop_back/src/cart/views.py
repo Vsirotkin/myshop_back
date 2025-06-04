@@ -20,7 +20,9 @@ class CartAddView(View):
         if form.is_valid():
             cd = form.cleaned_data
             cart.add(
-                product=product, quantity=cd["quantity"], update_quantity=cd["override"]
+                product=product,
+                quantity=cd["quantity"],
+                update_quantity=cd["override"],
             )
 
         # AJAX запрос? → JSON
@@ -63,9 +65,16 @@ class CartDetailView(View):
         if request.headers.get("X-Requested-With") == "XMLHttpRequest":
             return JsonResponse(
                 {
-                    "items": list(cart),
-                    "total_price": cart.get_total_price(),
                     "count": len(cart),
+                    "cart_total": str(cart.get_total_price()),
+                    "items": [
+                        {
+                            "name": item["product"].name,
+                            "quantity": item["quantity"],
+                            "total_price": str(item["total_price"]),
+                        }
+                        for item in cart
+                    ],
                 }
             )
 

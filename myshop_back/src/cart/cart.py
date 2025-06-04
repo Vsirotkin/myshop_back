@@ -31,7 +31,9 @@ class Cart:
             item = cart[str(product.id)]
             item['product'] = product
             item['total_price'] = Decimal(item['price']) * item['quantity']
-            item['form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'override': True})
+            item['form'] = CartAddProductForm(
+                initial={'quantity': item['quantity'], 'override': True}
+            )
             yield item
 
     def __len__(self):

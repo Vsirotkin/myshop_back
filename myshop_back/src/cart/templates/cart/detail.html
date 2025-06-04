@@ -8,7 +8,7 @@ Your shopping cart
 {% endblock %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="container mt-5">
     <h2 class="mb-4">Your shopping cart</h2>
 
     {% if cart %}
@@ -19,7 +19,7 @@ Your shopping cart
                 <th scope="col">Product</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Remove</th>
-                <th scope="col">Unit price</th>
+                <th scope="col">Unit Price</th>
                 <th scope="col">Total</th>
             </tr>
         </thead>
@@ -36,15 +36,13 @@ Your shopping cart
                         style="max-width: 80px;">
                     {% endif %}
                 </td>
-                <td>
-                    <a href="{{ product.get_absolute_url }}" class="text-decoration-none">{{ product.name }}</a>
-                </td>
+                <td>{{ product.name }}</td>
                 <td>
                     <form action="{% url 'cart:cart_add' product.id %}" method="post">
                         {% csrf_token %}
-                        {{ item.form }}
-                        <input type="hidden" name="override" value="True">
-                        <button type="submit" class="btn btn-sm btn-outline-secondary">Update</button>
+                        {{ item.form.quantity }}
+                        {{ item.form.override }}
+                        <button type="submit" class="btn btn-sm btn-outline-secondary ms-2">Update</button>
                     </form>
                 </td>
                 <td>
@@ -72,6 +70,6 @@ Your shopping cart
     </div>
     {% else %}
     <p class="lead">Корзина пуста.</p>
-    <a href="{% url 'shop:product_list' %}" class="btn btn-outline-primary">Go back to products</a>
+    <a href="{% url 'shop:product_list %}" class="btn btn-outline-primary">Go back to products</a>
     {% endif %}
     {% endblock %}

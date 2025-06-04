@@ -1,7 +1,8 @@
 # shop/views.py
 
 from django.views.generic import ListView, DetailView
-from .models import Product, Category
+from shop.models import Product, Category
+from cart.forms import CartAddProductForm
 
 
 class ProductListView(ListView):
@@ -34,5 +35,7 @@ class ProductDetailView(DetailView):
     template_name = "shop/product/detail.html"
     context_object_name = "product"
 
-    def get_queryset(self):
-        return Product.objects.filter(available=True)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["cart_product_form"] = CartAddProductForm()
+        return context
