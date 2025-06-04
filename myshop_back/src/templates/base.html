@@ -50,4 +50,14 @@
     {% block js %}{% endblock %}
 </body>
 
+<script>
+    function fetchCartCount() {
+        fetch('/cart/')
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector('.cart-count').innerText = data.count;
+            });
+    }
+</script>
+
 </html>

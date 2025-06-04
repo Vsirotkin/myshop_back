@@ -121,13 +121,13 @@ USE_TZ = True
 
 # settings.py
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # Для тестов:
@@ -143,3 +143,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # settings.py
 
 DEFAULT_PRODUCT_IMAGE = "img/no_image.jpg"
+
+# Cart ID
+CART_SESSION_ID = "cart"

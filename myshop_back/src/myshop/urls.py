@@ -8,7 +8,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
 ]
 
-urlpatterns += [path("", include("shop.urls", namespace="shop"))]
+urlpatterns += [
+    path("", include("shop.urls", namespace="shop")),
+    path("", include("cart.urls", namespace="cart")),
+]
 
 
 # Только для локальной разработки (DEBUG = True)

@@ -2,6 +2,7 @@
 
 {% extends "base.html" %}
 {% load static %}
+
 {% block title %}
 {{ product.name }}
 {% endblock %}
@@ -10,34 +11,35 @@
 <div class="container mt-4">
     <div class="row g-4">
         <div class="col-md-5">
-            <figure class="position-relative">
-                {% if product.image and product.image.url %}
-                <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
-                {% else %}
-                <img src="/media/img/no_image.jpg" class="img-fluid rounded" alt="No image available">
-                {% endif %}
-            </figure>
+            {% if product.image and product.image.url %}
+            <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+            {% else %}
+            <img src="/media/img/no_image.jpg" class="img-fluid rounded" alt="No image available">
+            {% endif %}
         </div>
 
         <div class="col-md-7">
-            <h1 class="mb-4">{{ product.name }}</h1>
-
-            <h4 class="text-muted mb-4">
+            <h1>{{ product.name }}</h1>
+            <h4 class="text-muted mb-3">
                 <a href="{{ product.category.get_absolute_url }}" class="text-decoration-none text-secondary">
                     {{ product.category }}
                 </a>
             </h4>
 
-            <p class="fs-4 text-success fw-bold mb-4">
+            <p class="fs-4 fw-bold text-success mb-3">
                 ${{ product.price }}
             </p>
 
+            <form action="{% url 'cart:cart_add' product.id %}" method="post" class="mb-3">
+                {% csrf_token %}
+                {{ cart_product_form }}
+                <button type="submit" class="btn btn-primary btn-lg">
+                    Add to cart
+                </button>
+            </form>
+
             <div class="mb-4">
                 {{ product.description|linebreaks }}
-            </div>
-
-            <div class="d-grid gap-2 d-md-block">
-                <a href="#" class="btn btn-primary btn-lg">Добавить в корзину</a>
             </div>
         </div>
     </div>
