@@ -61,7 +61,6 @@ class CartRemoveView(View):
 class CartDetailView(View):
     def get(self, request):
         cart = Cart(request)
-
         if request.headers.get("X-Requested-With") == "XMLHttpRequest":
             return JsonResponse(
                 {

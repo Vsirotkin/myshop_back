@@ -6,11 +6,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>
-        {% block title %}
-        Online Shop
-        {% endblock %}
-    </title>
+    <title>{% block title %}Online Shop{% endblock %}</title>
 
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +17,7 @@
     {% block css %}{% endblock %}
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <!-- Navbar -->
     {% include "includes/navbar.html" %}
@@ -31,46 +27,23 @@
         <h1><a href="/" class="text-white text-decoration-none">My Shop</a></h1>
     </header>
 
-    <!-- Subheader with cart -->
-    <div id="subheader" class="mb-4 text-end me-5">
-        <div class="cart d-flex align-items-center justify-content-end gap-2">
-            <span>Cart:</span>
-            <span class="badge bg-success" id="cart-count">{{ cart_items_count|default:0 }}</span>
-            <span class="fw-bold" id="cart-total">${{ cart_total|default:"0.00" }}</span>
-            <a href="{% url 'cart:cart_detail' %}" class="btn btn-sm btn-outline-secondary">View Cart</a>
-        </div>
-    </div>
-
     <!-- Main Content -->
-    <main class="container">
+    <main class="flex-grow-1 container mt-4">
         {% block content %}
         {% endblock %}
     </main>
 
+    <!-- Footer -->
+    <footer class="bg-light text-center py-3 mt-auto">
+        <div class="container">
+            <p class="mb-0">&copy; My Shop - Django 5 by Example</p>
+        </div>
+    </footer>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    {% block js %}
-    <script>
-        // Функция для обновления информации о корзине
-        function fetchCartCount() {
-            fetch('/cart/')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('cart-count').innerText = data.count || 0;
-                    document.getElementById('cart-total').innerText = '$' + (data.cart_total || '0.00');
-                })
-                .catch(err => {
-                    console.error("Не удалось загрузить данные корзины:", err);
-                });
-        }
-
-        // Обновляем каждые 3 секунды (или по событиям)
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchCartCount();
-        });
-    </script>
-    {% endblock %}
+    {% block js %}{% endblock %}
 </body>
 
 </html>

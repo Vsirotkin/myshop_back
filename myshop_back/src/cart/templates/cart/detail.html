@@ -2,10 +2,7 @@
 
 {% extends "base.html" %}
 {% load static %}
-
-{% block title %}
-Your shopping cart
-{% endblock %}
+{% block title %}Your shopping cart{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
@@ -69,7 +66,7 @@ Your shopping cart
         <a href="#" class="btn btn-success">Checkout</a>
     </div>
     {% else %}
-    <p class="lead">Корзина пуста.</p>
-    <a href="{% url 'shop:product_list %}" class="btn btn-outline-primary">Go back to products</a>
+        <p class="lead">Корзина пуста.</p>
+        <a href="{% url 'shop:product_list' %}" class="btn btn-outline-primary">Go back to products</a>
     {% endif %}
     {% endblock %}

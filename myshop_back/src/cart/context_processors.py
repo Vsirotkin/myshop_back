@@ -6,4 +6,7 @@ def cart_context(request):
 
     cart = Cart(request)
 
-    return {"cart_items_count": len(cart), "cart_total": cart.get_total_price()}
+    return {
+        "cart_items_count": len(cart),
+        "cart_total": cart.get_total_price(),
+    }

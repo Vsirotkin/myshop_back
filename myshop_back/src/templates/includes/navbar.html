@@ -1,28 +1,45 @@
-<!-- templates/includes/_navbar.html -->
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'shop:product_list' %}">Online Shop</a>
-        <div class="collapse navbar-collapse">
+        <a class="navbar-brand" href="{% url 'shop:product_list' %}">My Shop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'shop:product_list' %}">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         Categories
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'shop:product_list' %}">All Categories</a></li>
                         {% for category in categories %}
-                            <li>
-                                <a class="dropdown-item"
-                                   href="{% url 'shop:product_list_by_category' category_slug=category.slug %}">
-                                    {{ category.name }}
-                                </a>
-                            </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'shop:product_list_by_category' category.slug %}">
+                                {{ category.name }}
+                            </a>
+                        </li>
                         {% endfor %}
                     </ul>
+                </li>
+            </ul>
+
+            <!-- Cart Button -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item d-flex align-items-center gap-2 me-3">
+                    <span class="text-muted small d-none d-md-block">Cart:</span>
+                    <span class="badge bg-success">{{ cart_items_count|default:0 }}</span>
+                    <span class="fw-bold">${{ cart_total|default:"0.00" }}</span>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-primary btn-sm" href="{% url 'cart:cart_detail' %}" role="button">
+                        View Cart
+                    </a>
                 </li>
             </ul>
         </div>
