@@ -1,0 +1,65 @@
+<!-- templates/orders/order/create.html -->
+
+{% extends "base.html" %}
+{% block title %}Оформление заказа{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Оформление заказа</h2>
+
+    <!-- Сообщение о пустой корзине -->
+    {% if not cart %}
+    <div class="alert alert-danger mb-4">
+        Ваша корзина пуста. Невозможно оформить заказ.
+    </div>
+    {% else %}
+    <!-- Информация о товарах -->
+    <div class="order-info mb-4 p-3 bg-light rounded border">
+        <h4>Ваш заказ:</h4>
+        <ul class="list-group list-group-flush mb-3">
+            {% for item in cart %}
+            {% with product=item.product %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ item.quantity }} × {{ product.name }}
+                <span class="badge bg-secondary">$ {{ item.total_price }}</span>
+            </li>
+            {% endwith %}
+            {% endfor %}
+        </ul>
+        <p class="fw-bold text-end mb-0">
+            Общая сумма: ${{ cart.get_total_price }}
+        </p>
+    </div>
+    {% endif %}
+
+    <!-- Форма оформления заказа -->
+    {% if form %}
+    <form method="post" class="order-form">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger mb-4">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        {% for field in form %}
+        <div class="row mb-3 align-items-center">
+            <label class="col-md-3 col-form-label text-md-start">{{ field.label }}</label>
+            <div class="col-md-9">
+                {{ field }}
+                {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                {% endif %}
+                {% if field.errors %}
+                <div class="invalid-feedback d-block">{{ field.errors.as_text }}</div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-success btn-lg">Оформить заказ</button>
+        </div>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}
