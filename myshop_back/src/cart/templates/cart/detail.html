@@ -63,10 +63,10 @@
 
     <div class="d-flex justify-content-between mb-4">
         <a href="{% url 'shop:product_list' %}" class="btn btn-outline-secondary">Continue shopping</a>
-        <a href="#" class="btn btn-success">Checkout</a>
+        <a href="{% url 'orders:order_create' %}" class="btn btn-success">Checkout</a>
     </div>
     {% else %}
-        <p class="lead">Корзина пуста.</p>
-        <a href="{% url 'shop:product_list' %}" class="btn btn-outline-primary">Go back to products</a>
+    <p class="lead">Корзина пуста.</p>
+    <a href="{% url 'shop:product_list' %}" class="btn btn-outline-primary">Go back to products</a>
     {% endif %}
     {% endblock %}
